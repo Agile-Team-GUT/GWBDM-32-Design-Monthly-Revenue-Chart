@@ -1,0 +1,37 @@
+</script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+        
+        var d = [['Ngày', 'Doanh Thu']];
+        var yourJavaScriptArray = @Html.Raw(Json.Encode(@ViewBag.dataBarChar));
+        for (var i = 0; i < yourJavaScriptArray.length; i++) {
+            var j = i;
+            var a = ['' + (i+1), yourJavaScriptArray[i]];
+            d.push(a);
+        }
+
+        var data = new google.visualization.arrayToDataTable(d);
+
+        var options = {
+        title: 'Thống kê theo ngày !',
+        legend: { position: 'none' },
+        chart: {
+            title: 'Thống kê theo ngày !',
+            subtitle: ''
+        },
+            bars: 'vertical', // Required for Material Bar Charts.
+        axes: {
+            x: {
+                0: { side: 'bottom', label: '' } // Top x-axis.
+            }
+        },
+        bar: { groupWidth: "100%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    };
+</script>
